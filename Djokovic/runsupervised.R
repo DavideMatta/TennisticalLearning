@@ -27,6 +27,9 @@ fviz_pca_var(pc_all, col.var = "black", col.quanti.sup = "red",
              addlabels = TRUE, repel = TRUE, title = '')
 
 
+fviz_pca_var(pc_all, col.var = "#305041", col.circle = "#305041", 
+             col.quanti.sup = "red", fill.var = "#d4eb86",
+             addlabels = TRUE, repel = TRUE, title = '')
 
 
 
@@ -84,6 +87,28 @@ clusters
 
 
 plot (sdf, col = adjustcolor(clusters$cluster + 1, alpha.f = 0.1), main = '', pch = 20)
+
+
+color_vec = ifelse(clusters$cluster == 1, '#d4eb86', '#305041')
+
+plot(sdf$Opp_Court_Perc, sdf$Opp_Set_Perc, xlim=c(5, 95), ylim=c(5,95), 
+     col = adjustcolor(color_vec, alpha.f = 0.9),
+     xlab = 'Opp_Court_Perc', ylab = 'Opp_Set_Perc')
+
+
+ggplot(sdf, aes(x = Opp_Court_Perc, y = Opp_Set_Perc)) + theme_classic() +
+  geom_point(aes(col = color_vec), alpha = 0.7) + xlim(5, 95) + ylim(5, 95)  +
+  scale_color_manual(values = unique(color_vec), breaks = unique(color_vec),
+                     labels = c("1", "2"),
+                     name = "Clusters") + theme(legend.position = "top")
+
+
+
+
+
+geom_point(aes(x = year,y = boys, colour = 'Boys'),data=arbuthnot) +
+geom_point(aes(x = year,y = girls, colour = 'Girls'),data=arbuthnot,shape = 17)
+
 
 
 
